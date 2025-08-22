@@ -22,6 +22,8 @@ def load_user(user_id):
 @app.route('/')
 def home():
     return render_template('home.html')
+from sqlalchemy.exc import IntegrityError  # <- Add this at the top of your app.py if not already imported
+
 @app.route('/register', methods=['GET','POST'])
 def register():
     form = RegisterForm()
@@ -29,9 +31,13 @@ def register():
         hashed_pw = generate_password_hash(form.password.data, method='pbkdf2:sha256')
         user = User(username=form.username.data, email=form.email.data, password=hashed_pw)
         db.session.add(user)
-        db.session.commit()
-        flash('Account created! Please login.', 'success')
-        return redirect(url_for('login'))
+        try:
+            db.session.commit()
+            flash('Account created! Please login.', 'success')
+            return redirect(url_for('login'))
+        except IntegrityError:
+            db.session.rollback()
+            flash('Email already registered. Please use another email or login.', 'danger')
     return render_template('register.html', form=form)
 
 @app.route('/login', methods=['GET','POST'])
