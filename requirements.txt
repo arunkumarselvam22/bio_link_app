@@ -17,11 +17,6 @@ greenlet==3.2.4
 idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.6
-Kivy==2.3.1
-Kivy-Garden==0.1.5
-kivy_deps.angle==0.4.0
-kivy_deps.glew==0.3.1
-kivy_deps.sdl2==0.8.0
 MarkupSafe==3.0.2
 Pygments==2.19.2
 pypiwin32==223
@@ -35,3 +30,10 @@ typing_extensions==4.14.1
 urllib3==2.5.0
 Werkzeug==3.1.3
 WTForms==3.2.1
+Flask
+Flask-Login
+Flask-WTF
+Flask-SQLAlchemy
+email_validator
+Werkzeug
+gunicorn
